@@ -2,14 +2,15 @@
 
 ## users  テーブル
 
-| Column           | Type    | Options     |
-| -----------------| ------- | ----------- |
-| nickname         | string  | null: false |
-| email            | string  | null: false |
-| password         | string  | null: false |
-| name             | string  | null: false |
-| kana_pronouncing | string  | null: false |
-| birthday         | integer | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| name               | string | null: false               |
+| kana_last_name     | string | null: false               |
+| kana_first_name    | string | null: false               |
+| birthday           | date   | null: false               |
 
 
 ### Association
@@ -18,21 +19,21 @@
 
 ## items  テーブル
 
-| Column           | Type       | Options                        |
-| -----------------| ---------- | ------------------------------ |
-| name             | text       | null: false                    |
-| description      | text       | null: false                    |
-| category         | string     | null: false                    |
-| condition        | string     | null: false                    |
-| delivery_fee     | string     | null: false                    |
-| delivery_source  | string     | null: false                    |
-| days_to_ship     | string     | null: false                    |
-| price            | integer    | null: false                    |
-| user             | references | null: false, foreign_key: true |
+| Column             | Type       | Options                        |
+| -------------------| ---------- | ------------------------------ |
+| name               | string     | null: false                    |
+| description        | text       | null: false                    |
+| category_id        | string     | null: false                    |
+| condition_id       | string     | null: false                    |
+| delivery_fee_id    | string     | null: false                    |
+| delivery_source_id | string     | null: false                    |
+| day_to_ship_id     | string     | null: false                    |
+| price              | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
-- has_one :user
-- belongs_to :purchase_record
+- has_one :purchase_record
+- belongs_to :user
 
 ## purchase_records  テーブル
 
@@ -43,43 +44,23 @@
 
 ### Association
 - belongs_to :item
-- belongs_to :addresses
+- has_one :address
 - belongs_to :user
 
 ## addresses  テーブル
 
-| Column           | Type    | Options     |
-| -----------------| ------- | ----------- |
-| postal_code      | integer | null: false |
-| prefectures      | string  | null: false |
-| municipality     | string  | null: false |
-| house_number     | text    | null: false |
-| building_name    | text    | null: false |
-| telephone_number | integer | null: false |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| postal_code        | string     | null: false                    |
+| delivery_source_id | string     | null: false                    |
+| municipality       | string     | null: false                    |
+| house_number       | string     | null: false                    |
+| building_name      | string     |                                |
+| telephone_number   | string     | null: false                    |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
+
 
 
 ### Association
-- belonga_to :purchase_record
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- belongs_to :purchase_record
