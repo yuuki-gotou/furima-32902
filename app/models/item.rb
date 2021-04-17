@@ -9,14 +9,16 @@ class Item < ApplicationRecord
   belongs_to :delivery_source
   belongs_to :day_to_ship
   
+  VALID_HANKAKU_REGEX = /\A[0-9]+\z/
+
   with_options presence: true do
-    validates :name, :description, :image
+    validates :name, :description, :image, format: { message: 'を入力して下さい' }
 
     with_options numericality: { other_than: 1 } do
-      validates :delivery_source_id, :category_id, :condition_id, :delivery_fee_id, :delivery_source_id, :day_to_ship_id
+      validates :delivery_source_id, :category_id, :condition_id, :delivery_fee_id, :delivery_source_id, :day_to_ship_id, format: { message: 'を選択して下さい' }
     end
 
-    with_options format: { with: /\A[0-9]+\z/ } do
+    with_options format: { with: VALID_HANKAKU_REGEX } do
       validates :price, numericality: { greater_than: 300, less_than: 9999999 }
     end
   end
