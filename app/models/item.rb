@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  extend ActiveHash::Associations::ApplicationRecordExtensions
+  extend ActiveHash::Associations::ActiveRecordExtensions
   has_one :purchase_record
   belongs_to :user
   has_one_attached :image
@@ -12,10 +12,10 @@ class Item < ApplicationRecord
   VALID_HANKAKU_REGEX = /\A[0-9]+\z/
 
   with_options presence: true do
-    validates :name, :description, :image, format: { message: 'を入力して下さい' }
+    validates :name, :description, :image
 
     with_options numericality: { other_than: 1 } do
-      validates :delivery_source_id, :category_id, :condition_id, :delivery_fee_id, :delivery_source_id, :day_to_ship_id, format: { message: 'を選択して下さい' }
+      validates :delivery_source_id, :category_id, :condition_id, :delivery_fee_id, :delivery_source_id, :day_to_ship_id
     end
 
     with_options format: { with: VALID_HANKAKU_REGEX } do
