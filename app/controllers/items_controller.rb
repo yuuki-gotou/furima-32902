@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :move_to_index, except: [:index]
+  before_action :authenticate_user!, except: [:index]
   def index
   end
 
@@ -18,10 +17,6 @@ class ItemsController < ApplicationController
   end
 
   private
-
-  def move_to_index
-    redirected_to action: :index unless user_signed_in?
-  end
 
   def item_params
     params.require(:item).permit(:name, :description, :category_id, :condition_id, :delivery_fee_id, :delivery_source_id,

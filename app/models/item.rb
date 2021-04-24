@@ -1,6 +1,5 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  has_one :purchase_record
   belongs_to :user
   has_one_attached :image
   belongs_to :category
@@ -19,7 +18,7 @@ class Item < ApplicationRecord
     end
 
     with_options format: { with: VALID_HANKAKU_REGEX } do
-      validates :price, numericality: { greater_than: 300, less_than: 999999999 }
+      validates :price, numericality: { greater_than: 300, less_than: 9999999 }
     end
   end
 end
