@@ -127,7 +127,7 @@
     <ul class='item-lists'>
 
       
-    <% unless @items == nil %>
+    <% if @items[0] != nil %>
       <% @items.each do |item| %>
       <li class='list'>
         <%= link_to "#" do %>
