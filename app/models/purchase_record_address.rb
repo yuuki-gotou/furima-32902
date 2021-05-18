@@ -1,6 +1,7 @@
 class PurchaseRecordAddress
-  include ActiveModel::ActiveModel
-  attr_accessor :user_id, :item_id, :postal_code, :delivery_source_id, :municipality, :house_number, :building_name, :telephone_number
+
+  include ActiveModel::Model
+  attr_accessor :postal_code, :delivery_source_id, :municipality, :house_number, :building_name, :telephone_number, :user_id, :item_id, :purchase_record_id
 
   with_options presence: true do
     validates :municipality, :house_number
@@ -13,9 +14,7 @@ class PurchaseRecordAddress
   end
 
   def save
-    user = User.create(nickname: nickname, email: email, encrypted_password: encrypted_password, last_name: last_name, first_name: first_name, kana_last_name: kana_last_name, kana_first_name: kana_first_name, birthday: birthday)
-    item = Item.create(name: name, description: description, category_id: category_id, condition_id: condition_id, delivery_fee_id: delivery_fee_id, delivery_source_id: delivery_source_id, day_to_ship_id: day_to_ship_id, price: price)
-    Address.create(postal_code: postal_code, delivery_source_id: delivery_source_id, municipality: municipality, house_number: house_number, building_name: building_name, telephone_number: telephone_number)
-    PurchaseRecord.create(user_id: user_id, item_id: item_id)
+    purchase_record = PurchaseRecord.create(user_id: user_id, item_id: item_id)
+    Address.create(postal_code: postal_code, delivery_source_id: delivery_source_id, municipality: municipality, house_number: house_number, building_name: building_name, telephone_number: telephone_number, purchase_record_id: purchase_record.id)
   end
 end
