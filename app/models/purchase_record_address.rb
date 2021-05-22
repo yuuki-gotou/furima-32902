@@ -1,10 +1,10 @@
 class PurchaseRecordAddress
 
   include ActiveModel::Model
-  attr_accessor :postal_code, :delivery_source_id, :municipality, :house_number, :building_name, :telephone_number, :user_id, :item_id, :purchase_record_id
+  attr_accessor  :token, :postal_code, :delivery_source_id, :municipality, :house_number, :building_name, :telephone_number, :user_id, :item_id, :purchase_record_id
 
   with_options presence: true do
-    validates :municipality, :house_number
+    validates :municipality, :house_number, :token
     validates :delivery_source_id, numericality: { other_than: 1 }
     validates :telephone_number, format: { with: /\A\d{11}\z/ }
 
