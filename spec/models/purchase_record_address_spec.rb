@@ -9,6 +9,11 @@ RSpec.describe PurchaseRecordAddress, type: :model do
     it '全ての値が正しく入力されていれば保存できる' do
       expect(@purchase_record_address).to be_valid
     end
+    it 'tokenが空では保存できない' do
+      @purchase_record_address.token = nil
+      @purchase_record_address.valid?
+      expect(@purchase_record_address.errors.full_messages).to include("Token can't be blank")
+    end
     it '郵便番号が空では保存できない' do
       @purchase_record_address.postal_code = ''
       @purchase_record_address.valid?
@@ -17,12 +22,12 @@ RSpec.describe PurchaseRecordAddress, type: :model do
     it '郵便番号にハイフンがなければ保存できない' do
       @purchase_record_address.postal_code = '12345678'
       @purchase_record_address.valid?
-      expect(@purchase_record_address.errors.full_messages).to include("Postal code is invalid")
+      expect(@purchase_record_address.errors.full_messages).to include('Postal code is invalid')
     end
     it '郵便番号が7桁なら保存できない' do
       @purchase_record_address.postal_code = '123-456'
       @purchase_record_address.valid?
-      expect(@purchase_record_address.errors.full_messages).to include("Postal code is the wrong length (should be 8 characters)")
+      expect(@purchase_record_address.errors.full_messages).to include('Postal code is the wrong length (should be 8 characters)')
     end
     it '都道府県が空では保存できない' do
       @purchase_record_address.delivery_source_id = ''
@@ -32,7 +37,7 @@ RSpec.describe PurchaseRecordAddress, type: :model do
     it '都道府県のidが1だと保存できない' do
       @purchase_record_address.delivery_source_id = 1
       @purchase_record_address.valid?
-      expect(@purchase_record_address.errors.full_messages).to include("Delivery source must be other than 1")
+      expect(@purchase_record_address.errors.full_messages).to include('Delivery source must be other than 1')
     end
     it '市区町村が空では保存できない' do
       @purchase_record_address.municipality = ''
@@ -52,12 +57,12 @@ RSpec.describe PurchaseRecordAddress, type: :model do
     it '電話番号にハイフンがあれば保存できない' do
       @purchase_record_address.telephone_number = '090-1234567'
       @purchase_record_address.valid?
-      expect(@purchase_record_address.errors.full_messages).to include("Telephone number is invalid")
+      expect(@purchase_record_address.errors.full_messages).to include('Telephone number is invalid')
     end
     it '電話番号が12桁以上なら保存できない' do
       @purchase_record_address.telephone_number = '090123456789'
       @purchase_record_address.valid?
-      expect(@purchase_record_address.errors.full_messages).to include("Telephone number is invalid")
+      expect(@purchase_record_address.errors.full_messages).to include('Telephone number is invalid')
     end
   end
 end
