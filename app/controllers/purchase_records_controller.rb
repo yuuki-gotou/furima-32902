@@ -40,9 +40,6 @@ class PurchaseRecordsController < ApplicationController
   end
 
   def set_root
-    if current_user.id != @item.user_id && @item.purchase_record == nil
-    else
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id || @item.purchase_record != nil
   end
 end

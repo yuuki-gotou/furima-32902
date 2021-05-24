@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
   end
 
   def set_edit
-    redirect_to root_path unless user_signed_in? && current_user.id == @item.user_id
+    redirect_to root_path unless current_user.id == @item.user_id
   end
 
   def set_purchase
