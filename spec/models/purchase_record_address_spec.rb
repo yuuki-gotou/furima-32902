@@ -21,12 +21,12 @@ RSpec.describe PurchaseRecordAddress, type: :model do
       it 'user_idがなければ保存できない' do
         @purchase_record_address.user_id = nil
         @purchase_record_address.valid?
-        expect(@purchase_record_address.errors.full_messages).to include()
+        expect(@purchase_record_address.errors.full_messages).to include("User can't be blank")
       end
       it 'item_idがなければ保存できない' do
         @purchase_record_address.item_id = nil
         @purchase_record_address.valid?
-        expect(@purchase_record_address.errors.full_messages).to include()
+        expect(@purchase_record_address.errors.full_messages).to include("Item can't be blank")
       end
       it 'tokenが空では保存できない' do
         @purchase_record_address.token = nil

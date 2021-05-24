@@ -4,7 +4,7 @@ class PurchaseRecordAddress
                 :user_id, :item_id
 
   with_options presence: true do
-    validates :municipality, :house_number, :token
+    validates :municipality, :house_number, :token, :user_id, :item_id
     validates :delivery_source_id, numericality: { other_than: 1 }
     validates :telephone_number, format: { with: /\A\d{10,11}\z/ }
 
