@@ -1,13 +1,10 @@
 class PurchaseRecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
+  before_action :set_root, only: [:index, :create]
 
   def index
-     if current_user.id != @item.user_id && @item.purchase_record == nil
     @item_purchase_record = PurchaseRecordAddress.new
-     else
-     redirect_to root_path
-     end
   end
 
   def create
@@ -40,5 +37,12 @@ class PurchaseRecordsController < ApplicationController
       card: purchase_record_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def set_root
+    if current_user.id != @item.user_id && @item.purchase_record == nil
+    else
+      redirect_to root_path
+    end
   end
 end
