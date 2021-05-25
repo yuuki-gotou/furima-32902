@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe PurchaseRecordAddress, type: :model do
-    before do
-      user = FactoryBot.create(:user)
-      item = FactoryBot.create(:item)
-      sleep 0.2
-      @purchase_record_address = FactoryBot.build(:purchase_record_address, user_id: user.id, item_id: item.id)
-    end
+  before do
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    sleep 0.2
+    @purchase_record_address = FactoryBot.build(:purchase_record_address, user_id: user.id, item_id: item.id)
+  end
   describe '購入情報の保存' do
     context '保存できる場合' do
       it '全ての値が正しく入力されていれば保存できる' do
